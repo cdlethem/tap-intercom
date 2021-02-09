@@ -374,7 +374,10 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                 parent_id=parent_id)
             LOGGER.info('Stream {}, batch processed {} records'.format(
                 stream_name, record_count))
-            exit_counter = exit_counter + 1
+            if record_count == 0:
+                exit_counter = exit_counter + 1
+            else:
+                exit_counter = 0
         else:
             record_count = 0
 
