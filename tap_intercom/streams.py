@@ -125,7 +125,7 @@ STREAMS = {
             },
             'sort': {
                 'field': 'updated_at',
-                'order': 'ascending'
+                'order': 'descending'
             }
         },
         'data_key': 'data',
