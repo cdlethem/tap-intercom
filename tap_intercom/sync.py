@@ -285,7 +285,11 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
         request_body = build_query(search_query, max_bookmark_int)
 
     i = 1
-    while next_url is not None:
+    
+    # Counter to break loop after 3 empty pages
+    exit_counter = 0
+    
+    while next_url is not None and exit_counter < 3:
         # Need URL querystring for 1st page; subsequent pages provided by next_url
         # querystring: Squash query params into string
         if i == 1 and not is_scrolling:
@@ -370,6 +374,7 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                 parent_id=parent_id)
             LOGGER.info('Stream {}, batch processed {} records'.format(
                 stream_name, record_count))
+            exit_counter = exit_counter + 1
         else:
             record_count = 0
 
